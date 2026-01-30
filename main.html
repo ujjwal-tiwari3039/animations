@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevents scrolling during animation */
+            background-color: #1a1a1a; /* Background of your actual site */
+        }
+
+        .loader-wrapper {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .shutter {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 50.5%; /* Added .5% to prevent a gap in the middle */
+            background: #0f0f0f; /* Dark theme you like for Arch/Hyprland */
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .shutter.top { top: 0; }
+        .shutter.bottom { bottom: 0; }
+
+        .loader-text {
+            color: #00ff99; /* Cyber green */
+            font-family: 'Courier New', monospace;
+            font-size: 2rem;
+            letter-spacing: 5px;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        /* This class is added by JavaScript to start the animation */
+        .loaded .shutter.top { transform: translateY(-100%); }
+        .loaded .shutter.bottom { transform: translateY(100%); }
+        .loaded .loader-text { opacity: 0; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <div class="loader-wrapper">
+        <div class="shutter top"></div>
+        <div class="shutter bottom"></div>
+        <h1 class="loader-text">INITIALIZING...</h1>
+    </div>
+
+    <div style="padding: 50px; color: white;">
+        <h1>Welcome to Bixu Control Center</h1>
+        <p>Your site content is now visible.</p>
+    </div>
+
+    <script>
+        // Wait for everything to load, then trigger the animation
+        window.addEventListener('load', () => {
+            // Wait an extra 1 second so you can actually see the "Initializing" text
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+            }, 1000); 
+        });
+    </script>
+</body>
+</html>
